@@ -6,7 +6,12 @@ import TripForm from './components/TripForm';
 import ExcelExporter from './components/ExcelExporter';
 
 function App() {
-  // Initialize with empty trips array instead of dummy data
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [loginError, setLoginError] = useState('');
+
+  // Initialize with empty trips array
   const [trips, setTrips] = useState<Trip[]>([]);
   const [insertPosition, setInsertPosition] = useState<number | null>(null);
 
@@ -16,6 +21,17 @@ function App() {
       setInsertPosition(trips.length - 1);
     }
   }, [trips.length, insertPosition]);
+
+  // Handle login attempt
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (userName.toLowerCase() === 'marc') {
+      setIsAuthenticated(true);
+      setLoginError('');
+    } else {
+      setLoginError('Access denied. Please enter a valid name.');
+    }
+  };
 
   const handleInsertTrip = (position: number) => {
     setInsertPosition(position);
@@ -183,10 +199,41 @@ function App() {
   // Debugging: log the trips state to see what's happening
   console.log("Current trips state:", trips);
 
+  // Render login screen or app content based on authentication state
+  if (!isAuthenticated) {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>Trip Registration</h1>
+        </header>
+        <div className="login-container">
+          <form onSubmit={handleLogin} className="login-form">
+            <h2>Please Enter Your Name</h2>
+            {loginError && <div className="login-error">{loginError}</div>}
+            <div className="login-input-group">
+              <input
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <button type="submit" className="login-button">Enter</button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  // Normal app content (only shown when authenticated)
   return (
     <div className="App">
       <header className="App-header">
         <h1>Trip Registration</h1>
+        <div className="user-info">
+          Welcome, {userName}! <button onClick={() => setIsAuthenticated(false)} className="logout-button">Logout</button>
+        </div>
       </header>
       <main>
         <div className="action-buttons">
