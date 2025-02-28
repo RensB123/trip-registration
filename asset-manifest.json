@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/trip-registration/static/css/main.6a183877.css",
+    "main.js": "/trip-registration/static/js/main.738b2be9.js",
+    "static/js/453.c487f223.chunk.js": "/trip-registration/static/js/453.c487f223.chunk.js",
+    "index.html": "/trip-registration/index.html",
+    "main.6a183877.css.map": "/trip-registration/static/css/main.6a183877.css.map",
+    "main.738b2be9.js.map": "/trip-registration/static/js/main.738b2be9.js.map",
+    "453.c487f223.chunk.js.map": "/trip-registration/static/js/453.c487f223.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6a183877.css",
+    "static/js/main.738b2be9.js"
+  ]
+}
